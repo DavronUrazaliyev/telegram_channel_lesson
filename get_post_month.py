@@ -1,4 +1,5 @@
-from read_data import fromJson
+from read_data import fromJson as data
+import datetime
 
 
 def get_post_month(data:dict,month:int)->int:
@@ -12,5 +13,17 @@ def get_post_month(data:dict,month:int)->int:
     Returns: 
         int: the number of posts for the given month
     """
+def get_post_month(data:dict,month:int)->int:
+    dic={}
+    for i in range(1,13):
+        dic[i]=0
+    for i in data["messages"]:
+        if i["type"]=="message":
+            m=datetime.datetime.fromtimestamp(int(i["date_unixtime"])).month
+            dic[m]+=1
+    return dic
+data=data("data/result.json")
+a=get_post_month(data,2)
+print(a)
+
     
-    return
